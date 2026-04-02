@@ -2,7 +2,7 @@
 ### A Domain-Aware NLP Study — Master's Thesis, Università degli Studi di Milano
 
 **Author:** Antonella Convertini  
-**Supervisor:** Prof. Nicolò Cesa-Bianchi  
+**Supervisor:** Prof. Alfio Ferrara
 **Academic Year:** 2025–2026
 
 ---
