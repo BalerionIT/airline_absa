@@ -1,0 +1,50 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "▶  Run Pipeline  (scrape → fallback → analyse)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/main.py",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "args": []
+    },
+    {
+      "name": "🔄  Scrape only  (update CSV, no analysis)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/main.py",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "args": ["--scrape-only"]
+    },
+    {
+      "name": "📂  No scrape  (use local CSV directly)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/main.py",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "args": ["--no-scrape"]
+    },
+    {
+      "name": "🧪  Quick test  (3 airlines · 2 pages · analyse)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/main.py",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "args": ["--airlines", "british-airways,ryanair,lufthansa", "--max-pages", "2"]
+    },
+    {
+      "name": "🧪  Quick scrape only",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/main.py",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "args": ["--scrape-only", "--airlines", "british-airways,ryanair,lufthansa", "--max-pages", "2"]
+    }
+  ]
+}

@@ -1,0 +1,833 @@
+23:31:53  INFO      --no-scrape: using scraped CSV (/Users/balerion/Downloads/airline_absa-5/outputs/skytrax_fresh.csv)
+23:31:53  INFO      
+═════════════════════════════════════════════════════════════════
+§1  DATA LOADING & PREPROCESSING
+═════════════════════════════════════════════════════════════════
+23:31:54  INFO      Raw columns: ['Airline Name', 'Overall_Rating', 'Review_Title', 'Review Date', 'Verified', 'Review', 'Aircraft', 'Type Of Traveller', 'Seat Type', 'Route', 'Date Flown', 'Seat Comfort', 'Cabin Staff Service', 'Food & Beverages', 'Ground Service', 'Inflight Entertainment', 'Wifi & Connectivity', 'Value For Money', 'Recommended']
+23:32:00  INFO      Loaded 144,934 reviews | 578 airlines | date range: 2012-04-01 00:00:00 – 2026-03-01 00:00:00
+23:32:00  INFO      
+═════════════════════════════════════════════════════════════════
+§2  EDA
+═════════════════════════════════════════════════════════════════
+23:32:01  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/eda_overview.png
+23:32:01  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/eda_sub_ratings.png
+23:32:01  INFO      EDA complete.
+23:32:01  INFO      
+═════════════════════════════════════════════════════════════════
+§3-4  BIO ASPECT EXTRACTION
+═════════════════════════════════════════════════════════════════
+23:32:01  INFO      Running BIO tagger …
+23:35:27  INFO      Total spans: 717,904 | Reviews with ≥1: 138,813 (95.8%)
+23:35:27  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/bio_aspect_extraction.png
+23:35:27  INFO      
+═════════════════════════════════════════════════════════════════
+§5  ASPECT SENTIMENT CLASSIFICATION
+═════════════════════════════════════════════════════════════════
+23:35:32  INFO        Punctuality               P=0.623 R=0.629 F1=0.624
+23:35:34  INFO        Cabin Comfort             P=0.605 R=0.608 F1=0.606
+23:35:37  INFO        Cabin Crew Service        P=0.613 R=0.616 F1=0.613
+23:35:39  INFO        Food & Beverages          P=0.607 R=0.611 F1=0.608
+23:35:39  INFO        Value For Money           P=0.590 R=0.592 F1=0.590
+23:35:41  INFO        OVERALL ASC  F1=0.609 | Lexicon baseline F1=0.462
+23:37:57  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/per_aspect_evaluation.png
+23:37:57  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/asc_confusion_matrix.png
+23:37:57  INFO      
+═════════════════════════════════════════════════════════════════
+§6  RATING–ASPECT ALIGNMENT
+═════════════════════════════════════════════════════════════════
+23:37:57  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/subrating_correlation.png
+23:37:58  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/radar_chart.png
+23:37:58  INFO      Strongest driver: Value For Money (r=0.899)
+23:37:58  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 5 — LCC vs LEGACY
+═════════════════════════════════════════════════════════════════
+23:37:58  INFO      European dataset: 32,994 reviews (LCC=11,093, Legacy=21,901)
+23:37:58  INFO        LCC mean=4.55  Legacy mean=4.75  p=0.0000
+23:37:58  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/lcc_vs_legacy_comparison.png
+23:37:58  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 6 — CABIN CLASS COMPARISON
+═════════════════════════════════════════════════════════════════
+23:37:58  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/class_rating_overview.png
+23:37:58  INFO        Economy vs Business (Mann-Whitney U):
+23:37:58  INFO          Overall_Rating                 Eco=4.06 Biz=6.16 ***
+23:37:58  INFO          Seat Comfort                   Eco=2.59 Biz=3.51 ***
+23:37:58  INFO          Cabin Staff Service            Eco=2.86 Biz=3.77 ***
+23:37:58  INFO          Food & Beverages               Eco=2.58 Biz=3.42 ***
+23:37:58  INFO          Ground Service                 Eco=2.25 Biz=3.20 ***
+23:37:58  INFO          Inflight Entertainment         Eco=2.48 Biz=3.25 ***
+23:37:58  INFO          Wifi & Connectivity            Eco=1.83 Biz=2.76 ***
+23:37:58  INFO          Value For Money                Eco=2.51 Biz=3.34 ***
+23:37:58  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/class_radar.png
+23:37:58  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 7 — TIME SERIES & GLOBAL EVENTS
+═════════════════════════════════════════════════════════════════
+23:37:59  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/timeseries_global_events.png
+23:37:59  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/seasonality_heatmap.png
+23:37:59  INFO      Time series complete | Data: 2014–2026 | Events annotated: 14/18
+23:37:59  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 8 — PREDICTIVE MODEL + DELAY THRESHOLD
+═════════════════════════════════════════════════════════════════
+23:38:05  INFO        Time-based split: train up to 2023-02, test after (88,744 train / 22,187 test)
+23:38:05  INFO        Ridge RMSE=1.162 R²=0.874 (time-based split, no leakage)
+23:38:05  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/predictive_feature_importance.png
+23:38:06  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/delay_threshold_analysis.png
+23:38:06  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 9 — FAKE REVIEW DETECTION
+═════════════════════════════════════════════════════════════════
+23:38:09  INFO        Training Isolation Forest …
+23:38:16  INFO        Flagged: 17 / 144,934 (0.0%)
+23:38:16  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/fake_review_detection.png
+23:38:16  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 10 — ROUTE ANALYSIS
+═════════════════════════════════════════════════════════════════
+23:38:18  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/route_haul_analysis.png
+23:38:18  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 11 — AOPE
+═════════════════════════════════════════════════════════════════
+23:38:18  INFO        Extracting AOPE pairs …
+23:40:00  INFO        419,153 pairs | 114,976 reviews | negation rate=4.2%
+23:40:00  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/aope_opinion_words.png
+23:40:00  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 12 — TRAVELLER TYPE × ASPECT INTERACTION
+═════════════════════════════════════════════════════════════════
+23:40:00  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/traveller_aspect_interaction.png
+23:40:01  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/traveller_delay_sensitivity.png
+23:40:01  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 13 — AIRCRAFT TYPE ANALYSIS
+═════════════════════════════════════════════════════════════════
+23:40:01  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/aircraft_analysis.png
+23:40:02  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 14 — WEATHER SIGNAL ANALYSIS
+═════════════════════════════════════════════════════════════════
+23:40:26  INFO        Weather mentions: 7,458 / 144,934 (5.1%)
+23:40:26  INFO        Rating — weather: 4.58 | no-weather: 4.37 | gap: +0.20 (p=0.0000)
+23:40:26  INFO        → Passengers are MORE forgiving when weather is mentioned (attribution theory).
+23:40:26  INFO        Weather+delay co-mention: 4,364 (58.5%)
+23:40:26  INFO        Weather+delay mean rating: 3.77 | weather alone: 5.71
+23:40:26  INFO        Turbulence         n=1,499  mean=6.09
+23:40:26  INFO        Precipitation      n=1,052  mean=3.94
+23:40:26  INFO        Ice & De-icing     n=1,718  mean=5.58
+23:40:26  INFO        Fog & Vis          n=  474  mean=4.60
+23:40:26  INFO        Wind & Storm       n=1,301  mean=4.22
+23:40:26  INFO        Generic            n=2,181  mean=3.21
+23:40:27  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/weather_analysis.png
+23:40:27  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/weather_subrating_impact.png
+23:40:27  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/weather_segments.png
+23:40:27  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/weather_airlines.png
+23:40:27  INFO      
+  WEATHER MODULE SUMMARY
+  ───────────────────────────────────────────────────────
+  Total weather mentions    : 7,458 (5.1% of corpus)
+  Mean rating — weather     : 4.58
+  Mean rating — no weather  : 4.37
+  Attribution gap           : +0.20 (p=0.0000)
+  Weather + delay           : 4,364 (58.5% of weather reviews)
+  Weather without delay     : 3,094 (mean: 5.71)
+  Weather + delay mean      : 3.77
+  Peak weather month        : Jan
+  ───────────────────────────────────────────────────────
+  Interpretation: passengers are MORE forgiving when
+  weather is mentioned. The delay pathway accounts for 59% of
+  weather-related sentiment, consistent with attribution theory.
+
+23:40:27  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 15 - PEAK SEASON ANALYSIS (HEMISPHERE-AWARE)
+═════════════════════════════════════════════════════════════════
+23:40:28  INFO        Hemisphere NH: 121,075 (83.5%)
+23:40:28  INFO        Hemisphere EQ: 14,041 (9.7%)
+23:40:28  INFO        Hemisphere SH: 9,818 (6.8%)
+23:40:28  INFO        NH peak (Jun-Aug):  3.54 | off-peak: 4.01 | D=-0.47 p=0.0000
+23:40:28  INFO        SH peak (Dec-Feb):  3.86 | off-peak: 4.04 | D=-0.18 p=0.0938
+23:40:28  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/peak_season_hemispheres.png
+23:40:28  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/peak_season_aspect_delta.png
+23:40:28  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/peak_season_comparison.png
+23:40:28  INFO      
+  PEAK SEASON SUMMARY
+  ─────────────────────────────────────────────────────────────
+  NH reviews              : 101,150
+  SH reviews              : 9,804
+  NH peak (Jun-Aug) gap   : -0.47  (p=0.0000)
+  SH peak (Dec-Feb) gap   : -0.18  (p=0.0938)
+  ─────────────────────────────────────────────────────────────
+  Both hemispheres show a peak-season rating shift driven by
+  higher passenger volumes, reduced operational slack, and
+  greater delay probability during high-demand periods.
+
+23:40:28  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 16 — CAUSAL INFERENCE (DiD EVENT ANALYSIS)
+═════════════════════════════════════════════════════════════════
+23:40:28  INFO        Boeing 737 MAX Ban              DiD=+0.803  raw=-0.281  p=0.0001 ***  (pre n=5,085, post n=5,408)
+23:40:28  INFO        COVID-19 Pandemic               DiD=-0.893  raw=-1.174  p=0.0000 ***  (pre n=5,408, post n=984)
+23:40:28  INFO        Ukraine War & Airspace          DiD=-0.345  raw=-0.170  p=0.1180 n.s.  (pre n=1,754, post n=4,382)
+23:40:28  INFO        Post-COVID Boom                 DiD=+0.730  raw=+0.257  p=0.0002 ***  (pre n=2,922, post n=4,891)
+23:40:28  INFO        EU Aviation Strikes             DiD=+1.329  raw=+0.689  p=0.0000 ***  (pre n=3,215, post n=3,770)
+23:40:29  INFO        Boeing Door Blowout             DiD=-0.301  raw=+0.320  p=0.0001 ***  (pre n=4,020, post n=2,255)
+23:40:29  INFO        CrowdStrike Outage              DiD=+0.058  raw=+0.221  p=0.0160 *  (pre n=3,709, post n=2,204)
+23:40:29  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/causal_event_impacts.png
+23:40:29  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/causal_did_panels.png
+23:40:29  INFO      
+  DiD SUMMARY TABLE
+23:40:29  INFO        Event                               DiD    Raw Δ    p-value   Sig
+23:40:29  INFO        ─────────────────────────────────────────────────────────────────
+23:40:29  INFO        COVID-19 Pandemic                -0.893   -1.174     0.0000   ***
+23:40:29  INFO        Ukraine War & Airspace           -0.345   -0.170     0.1180  n.s.
+23:40:29  INFO        Boeing Door Blowout              -0.301   +0.320     0.0001   ***
+23:40:29  INFO        CrowdStrike Outage               +0.058   +0.221     0.0160     *
+23:40:29  INFO        Post-COVID Boom                  +0.730   +0.257     0.0002   ***
+23:40:29  INFO        Boeing 737 MAX Ban               +0.803   -0.281     0.0001   ***
+23:40:29  INFO        EU Aviation Strikes              +1.329   +0.689     0.0000   ***
+23:40:29  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/causal_did_results.csv
+23:40:29  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 17 — SEASONAL SENSITIVITY BY CARRIER / CABIN / HAUL
+═════════════════════════════════════════════════════════════════
+23:40:29  INFO        NH reviews: 100,256 | SH reviews: 10,698
+23:40:29  INFO        LCC      NH  peak=2.64  off=3.06  gap=-0.42  p=0.0000 ***
+23:40:29  INFO        LCC      SH  peak=2.53  off=2.65  gap=-0.11  p=0.9502 n.s.
+23:40:29  INFO        Legacy   NH  peak=3.83  off=4.33  gap=-0.50  p=0.0000 ***
+23:40:29  INFO        Legacy   SH  peak=4.38  off=4.68  gap=-0.30  p=0.0132 *
+23:40:29  INFO        Other    NH  peak=4.00  off=4.39  gap=-0.39  p=0.0000 ***
+23:40:29  INFO        Other    SH  peak=3.80  off=3.88  gap=-0.08  p=0.6817 n.s.
+23:40:29  INFO        Economy          NH  gap=-0.44  ***
+23:40:29  INFO        Economy          SH  gap=-0.22  n.s.
+23:40:29  INFO        Prem.Economy     NH  gap=-0.50  ***
+23:40:29  INFO        Prem.Economy     SH  gap=-0.79  *
+23:40:29  INFO        Business         NH  gap=-0.28  ***
+23:40:29  INFO        Business         SH  gap=+0.09  n.s.
+23:40:29  INFO        First            NH  gap=+0.05  n.s.
+23:40:29  INFO        Short-haul     NH  gap=-0.43  ***
+23:40:29  INFO        Short-haul     SH  gap=-0.13  n.s.
+23:40:29  INFO        Medium-haul    NH  gap=-0.45  ***
+23:40:29  INFO        Medium-haul    SH  gap=-0.18  n.s.
+23:40:29  INFO        Long-haul      NH  gap=-0.39  ***
+23:40:29  INFO        Ultra-long     NH  gap=-0.35  **
+23:40:29  INFO        Ultra-long     SH  gap=-0.21  n.s.
+23:40:30  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/seasonal_carrier_penalty.png
+23:40:30  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/seasonal_carrier_heatmap.png
+23:40:30  INFO      
+  MODULE 17 SUMMARY
+  ─────────────────────────────────────────────────────────────────
+  Key findings:
+  • LCC carriers typically show a larger peak-season penalty than Legacy
+    carriers, consistent with lower operational slack and fewer hub options.
+  • Economy Class absorbs the largest peak-season penalty; Business Class
+    is partially insulated through dedicated check-in, lounge access, and
+    higher minimum service floors.
+  • Short-haul routes show the strongest seasonal sensitivity due to slot
+    constraints, single-airport dependencies, and weather cascade effects.
+  ─────────────────────────────────────────────────────────────────
+
+23:40:30  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 18 — FINE-TUNED DISTILBERT ASC
+═════════════════════════════════════════════════════════════════
+23:40:33  INFO        Device: cpu
+23:40:33  INFO        Model:  distilbert-base-uncased
+23:40:33  INFO        Epochs: 3  |  Batch: 16  |  MaxLen: 128
+23:40:33  INFO        Train cutoff: 2023-02-01
+23:40:33  INFO        Loading tokenizer (distilbert-base-uncased)…
+23:40:33  INFO        Punctuality: training…
+23:40:33  ERROR     Module Module 18 DistilBERT failed: cannot import name 'TRIGGERS' from 'config' (/Users/balerion/Downloads/airline_absa-5/config.py) — continuing with remaining modules.
+23:40:33  INFO      
+═════════════════════════════════════════════════════════════════
+SAVING ALL OUTPUTS
+═════════════════════════════════════════════════════════════════
+23:40:34  INFO        annotated_reviews_full.csv    (144,934 rows)
+23:40:36  INFO        aspect_span_predictions.csv   (717,904 spans)
+23:40:36  INFO        aope_pairs.csv                (419,153 pairs)
+23:40:36  INFO        flagged_fake_reviews.csv      (17 flagged)
+23:40:36  INFO        evaluation_summary.csv + subrating_correlation.csv
+23:40:36  INFO      
+═════════════════════════════════════════════════════════════════
+PIPELINE COMPLETE — SUMMARY
+═════════════════════════════════════════════════════════════════
+23:40:36  INFO      
+  Dataset             : 144,934 reviews | 578 airlines
+  BIO spans           : 717,904 | 138,813 reviews covered
+  AOPE pairs          : 419,153 | negation rate 4.2%
+  Multi-aspect        : 110,496 reviews (76.2%)
+  ASC lexicon F1      : 0.462
+  ASC TF-IDF+LR F1    : 0.609  (Δ=+0.146)
+  Satisfaction driver : Value For Money (r=0.899)
+  Discrepancies       : 8,264 (5.7%)
+  Fake flagged        : 17 (0.0%)
+  All outputs → /Users/balerion/Downloads/airline_absa-5/outputs/
+
+00:50:55  INFO      --no-scrape: using scraped CSV (/Users/balerion/Downloads/airline_absa-5/outputs/skytrax_fresh.csv)
+00:50:55  INFO      
+═════════════════════════════════════════════════════════════════
+§1  DATA LOADING & PREPROCESSING
+═════════════════════════════════════════════════════════════════
+00:50:56  INFO      Raw columns: ['Airline Name', 'Overall_Rating', 'Review_Title', 'Review Date', 'Verified', 'Review', 'Aircraft', 'Type Of Traveller', 'Seat Type', 'Route', 'Date Flown', 'Seat Comfort', 'Cabin Staff Service', 'Food & Beverages', 'Ground Service', 'Inflight Entertainment', 'Wifi & Connectivity', 'Value For Money', 'Recommended']
+00:51:02  INFO      Loaded 144,934 reviews | 578 airlines | date range: 2012-04-01 00:00:00 – 2026-03-01 00:00:00
+00:51:02  INFO      
+═════════════════════════════════════════════════════════════════
+§2  EDA
+═════════════════════════════════════════════════════════════════
+00:51:02  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/eda_overview.png
+00:51:02  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/eda_sub_ratings.png
+00:51:02  INFO      EDA complete.
+00:51:02  INFO      
+═════════════════════════════════════════════════════════════════
+§3-4  BIO ASPECT EXTRACTION
+═════════════════════════════════════════════════════════════════
+00:51:02  INFO      Running BIO tagger …
+00:54:24  INFO      Total spans: 717,904 | Reviews with ≥1: 138,813 (95.8%)
+00:54:24  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/bio_aspect_extraction.png
+00:54:24  INFO      
+═════════════════════════════════════════════════════════════════
+§5  ASPECT SENTIMENT CLASSIFICATION
+═════════════════════════════════════════════════════════════════
+00:54:29  INFO        Punctuality               P=0.616 R=0.621 F1=0.617
+00:54:32  INFO        Cabin Comfort             P=0.607 R=0.610 F1=0.608
+00:54:34  INFO        Cabin Crew Service        P=0.602 R=0.606 F1=0.603
+00:54:36  INFO        Food & Beverages          P=0.616 R=0.621 F1=0.617
+00:54:37  INFO        Value For Money           P=0.579 R=0.583 F1=0.580
+00:54:38  INFO        OVERALL ASC  F1=0.606 | Lexicon baseline F1=0.462
+00:56:50  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/per_aspect_evaluation.png
+00:56:50  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/asc_confusion_matrix.png
+00:56:50  INFO      
+═════════════════════════════════════════════════════════════════
+§6  RATING–ASPECT ALIGNMENT
+═════════════════════════════════════════════════════════════════
+00:56:50  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/subrating_correlation.png
+00:56:51  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/radar_chart.png
+00:56:51  INFO      Strongest driver: Value For Money (r=0.899)
+00:56:51  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 5 — LCC vs LEGACY
+═════════════════════════════════════════════════════════════════
+00:56:51  INFO      European dataset: 32,994 reviews (LCC=11,093, Legacy=21,901)
+00:56:51  INFO        LCC mean=4.55  Legacy mean=4.75  p=0.0000
+00:56:51  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/lcc_vs_legacy_comparison.png
+00:56:51  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 6 — CABIN CLASS COMPARISON
+═════════════════════════════════════════════════════════════════
+00:56:51  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/class_rating_overview.png
+00:56:51  INFO        Economy vs Business (Mann-Whitney U):
+00:56:51  INFO          Overall_Rating                 Eco=4.06 Biz=6.16 ***
+00:56:51  INFO          Seat Comfort                   Eco=2.59 Biz=3.51 ***
+00:56:51  INFO          Cabin Staff Service            Eco=2.86 Biz=3.77 ***
+00:56:51  INFO          Food & Beverages               Eco=2.58 Biz=3.42 ***
+00:56:51  INFO          Ground Service                 Eco=2.25 Biz=3.20 ***
+00:56:51  INFO          Inflight Entertainment         Eco=2.48 Biz=3.25 ***
+00:56:51  INFO          Wifi & Connectivity            Eco=1.83 Biz=2.76 ***
+00:56:51  INFO          Value For Money                Eco=2.51 Biz=3.34 ***
+00:56:51  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/class_radar.png
+00:56:51  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 7 — TIME SERIES & GLOBAL EVENTS
+═════════════════════════════════════════════════════════════════
+00:56:52  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/timeseries_global_events.png
+00:56:52  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/seasonality_heatmap.png
+00:56:52  INFO      Time series complete | Data: 2014–2026 | Events annotated: 14/18
+00:56:52  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 8 — PREDICTIVE MODEL + DELAY THRESHOLD
+═════════════════════════════════════════════════════════════════
+00:56:57  INFO        Time-based split: train up to 2023-02, test after (88,744 train / 22,187 test)
+00:56:57  INFO        Ridge RMSE=1.162 R²=0.874 (time-based split, no leakage)
+00:56:57  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/predictive_feature_importance.png
+00:56:59  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/delay_threshold_analysis.png
+00:56:59  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 9 — FAKE REVIEW DETECTION
+═════════════════════════════════════════════════════════════════
+00:57:02  INFO        Training Isolation Forest …
+00:57:09  INFO        Flagged: 17 / 144,934 (0.0%)
+00:57:09  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/fake_review_detection.png
+00:57:09  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 10 — ROUTE ANALYSIS
+═════════════════════════════════════════════════════════════════
+00:57:11  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/route_haul_analysis.png
+00:57:11  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 11 — AOPE
+═════════════════════════════════════════════════════════════════
+00:57:11  INFO        Extracting AOPE pairs …
+00:58:51  INFO        419,153 pairs | 114,976 reviews | negation rate=4.2%
+00:58:52  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/aope_opinion_words.png
+00:58:52  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 12 — TRAVELLER TYPE × ASPECT INTERACTION
+═════════════════════════════════════════════════════════════════
+00:58:52  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/traveller_aspect_interaction.png
+00:58:53  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/traveller_delay_sensitivity.png
+00:58:53  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 13 — AIRCRAFT TYPE ANALYSIS
+═════════════════════════════════════════════════════════════════
+00:58:53  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/aircraft_analysis.png
+00:58:53  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 14 — WEATHER SIGNAL ANALYSIS
+═════════════════════════════════════════════════════════════════
+00:59:18  INFO        Weather mentions: 7,458 / 144,934 (5.1%)
+00:59:18  INFO        Rating — weather: 4.58 | no-weather: 4.37 | gap: +0.20 (p=0.0000)
+00:59:18  INFO        → Passengers are MORE forgiving when weather is mentioned (attribution theory).
+00:59:18  INFO        Weather+delay co-mention: 4,364 (58.5%)
+00:59:18  INFO        Weather+delay mean rating: 3.77 | weather alone: 5.71
+00:59:18  INFO        Turbulence         n=1,499  mean=6.09
+00:59:18  INFO        Precipitation      n=1,052  mean=3.94
+00:59:18  INFO        Ice & De-icing     n=1,718  mean=5.58
+00:59:18  INFO        Fog & Vis          n=  474  mean=4.60
+00:59:18  INFO        Wind & Storm       n=1,301  mean=4.22
+00:59:18  INFO        Generic            n=2,181  mean=3.21
+00:59:19  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/weather_analysis.png
+00:59:19  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/weather_subrating_impact.png
+00:59:19  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/weather_segments.png
+00:59:19  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/weather_airlines.png
+00:59:19  INFO      
+  WEATHER MODULE SUMMARY
+  ───────────────────────────────────────────────────────
+  Total weather mentions    : 7,458 (5.1% of corpus)
+  Mean rating — weather     : 4.58
+  Mean rating — no weather  : 4.37
+  Attribution gap           : +0.20 (p=0.0000)
+  Weather + delay           : 4,364 (58.5% of weather reviews)
+  Weather without delay     : 3,094 (mean: 5.71)
+  Weather + delay mean      : 3.77
+  Peak weather month        : Jan
+  ───────────────────────────────────────────────────────
+  Interpretation: passengers are MORE forgiving when
+  weather is mentioned. The delay pathway accounts for 59% of
+  weather-related sentiment, consistent with attribution theory.
+
+00:59:19  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 15 - PEAK SEASON ANALYSIS (HEMISPHERE-AWARE)
+═════════════════════════════════════════════════════════════════
+00:59:19  INFO        Hemisphere NH: 121,075 (83.5%)
+00:59:19  INFO        Hemisphere EQ: 14,041 (9.7%)
+00:59:19  INFO        Hemisphere SH: 9,818 (6.8%)
+00:59:19  INFO        NH peak (Jun-Aug):  3.54 | off-peak: 4.01 | D=-0.47 p=0.0000
+00:59:19  INFO        SH peak (Dec-Feb):  3.86 | off-peak: 4.04 | D=-0.18 p=0.0938
+00:59:20  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/peak_season_hemispheres.png
+00:59:20  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/peak_season_aspect_delta.png
+00:59:20  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/peak_season_comparison.png
+00:59:20  INFO      
+  PEAK SEASON SUMMARY
+  ─────────────────────────────────────────────────────────────
+  NH reviews              : 101,150
+  SH reviews              : 9,804
+  NH peak (Jun-Aug) gap   : -0.47  (p=0.0000)
+  SH peak (Dec-Feb) gap   : -0.18  (p=0.0938)
+  ─────────────────────────────────────────────────────────────
+  Both hemispheres show a peak-season rating shift driven by
+  higher passenger volumes, reduced operational slack, and
+  greater delay probability during high-demand periods.
+
+00:59:20  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 16 — CAUSAL INFERENCE (DiD EVENT ANALYSIS)
+═════════════════════════════════════════════════════════════════
+00:59:20  INFO        Boeing 737 MAX Ban              DiD=+0.803  raw=-0.281  p=0.0001 ***  (pre n=5,085, post n=5,408)
+00:59:20  INFO        COVID-19 Pandemic               DiD=-0.893  raw=-1.174  p=0.0000 ***  (pre n=5,408, post n=984)
+00:59:20  INFO        Ukraine War & Airspace          DiD=-0.345  raw=-0.170  p=0.1180 n.s.  (pre n=1,754, post n=4,382)
+00:59:20  INFO        Post-COVID Boom                 DiD=+0.730  raw=+0.257  p=0.0002 ***  (pre n=2,922, post n=4,891)
+00:59:20  INFO        EU Aviation Strikes             DiD=+1.329  raw=+0.689  p=0.0000 ***  (pre n=3,215, post n=3,770)
+00:59:20  INFO        Boeing Door Blowout             DiD=-0.301  raw=+0.320  p=0.0001 ***  (pre n=4,020, post n=2,255)
+00:59:20  INFO        CrowdStrike Outage              DiD=+0.058  raw=+0.221  p=0.0160 *  (pre n=3,709, post n=2,204)
+00:59:21  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/causal_event_impacts.png
+00:59:21  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/causal_did_panels.png
+00:59:21  INFO      
+  DiD SUMMARY TABLE
+00:59:21  INFO        Event                               DiD    Raw Δ    p-value   Sig
+00:59:21  INFO        ─────────────────────────────────────────────────────────────────
+00:59:21  INFO        COVID-19 Pandemic                -0.893   -1.174     0.0000   ***
+00:59:21  INFO        Ukraine War & Airspace           -0.345   -0.170     0.1180  n.s.
+00:59:21  INFO        Boeing Door Blowout              -0.301   +0.320     0.0001   ***
+00:59:21  INFO        CrowdStrike Outage               +0.058   +0.221     0.0160     *
+00:59:21  INFO        Post-COVID Boom                  +0.730   +0.257     0.0002   ***
+00:59:21  INFO        Boeing 737 MAX Ban               +0.803   -0.281     0.0001   ***
+00:59:21  INFO        EU Aviation Strikes              +1.329   +0.689     0.0000   ***
+00:59:21  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/causal_did_results.csv
+00:59:21  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 17 — SEASONAL SENSITIVITY BY CARRIER / CABIN / HAUL
+═════════════════════════════════════════════════════════════════
+00:59:21  INFO        NH reviews: 100,256 | SH reviews: 10,698
+00:59:21  INFO        LCC      NH  peak=2.64  off=3.06  gap=-0.42  p=0.0000 ***
+00:59:21  INFO        LCC      SH  peak=2.53  off=2.65  gap=-0.11  p=0.9502 n.s.
+00:59:21  INFO        Legacy   NH  peak=3.83  off=4.33  gap=-0.50  p=0.0000 ***
+00:59:21  INFO        Legacy   SH  peak=4.38  off=4.68  gap=-0.30  p=0.0132 *
+00:59:21  INFO        Other    NH  peak=4.00  off=4.39  gap=-0.39  p=0.0000 ***
+00:59:21  INFO        Other    SH  peak=3.80  off=3.88  gap=-0.08  p=0.6817 n.s.
+00:59:21  INFO        Economy          NH  gap=-0.44  ***
+00:59:21  INFO        Economy          SH  gap=-0.22  n.s.
+00:59:21  INFO        Prem.Economy     NH  gap=-0.50  ***
+00:59:21  INFO        Prem.Economy     SH  gap=-0.79  *
+00:59:21  INFO        Business         NH  gap=-0.28  ***
+00:59:21  INFO        Business         SH  gap=+0.09  n.s.
+00:59:21  INFO        First            NH  gap=+0.05  n.s.
+00:59:21  INFO        Short-haul     NH  gap=-0.43  ***
+00:59:21  INFO        Short-haul     SH  gap=-0.13  n.s.
+00:59:21  INFO        Medium-haul    NH  gap=-0.45  ***
+00:59:21  INFO        Medium-haul    SH  gap=-0.18  n.s.
+00:59:21  INFO        Long-haul      NH  gap=-0.39  ***
+00:59:21  INFO        Ultra-long     NH  gap=-0.35  **
+00:59:21  INFO        Ultra-long     SH  gap=-0.21  n.s.
+00:59:21  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/seasonal_carrier_penalty.png
+00:59:21  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/seasonal_carrier_heatmap.png
+00:59:21  INFO      
+  MODULE 17 SUMMARY
+  ─────────────────────────────────────────────────────────────────
+  Key findings:
+  • LCC carriers typically show a larger peak-season penalty than Legacy
+    carriers, consistent with lower operational slack and fewer hub options.
+  • Economy Class absorbs the largest peak-season penalty; Business Class
+    is partially insulated through dedicated check-in, lounge access, and
+    higher minimum service floors.
+  • Short-haul routes show the strongest seasonal sensitivity due to slot
+    constraints, single-airport dependencies, and weather cascade effects.
+  ─────────────────────────────────────────────────────────────────
+
+00:59:21  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 18 — FINE-TUNED DISTILBERT ASC
+═════════════════════════════════════════════════════════════════
+00:59:23  INFO        Device: cpu
+00:59:23  INFO        Model:  distilbert-base-uncased
+00:59:23  INFO        Epochs: 3  |  Batch: 16  |  MaxLen: 128
+00:59:23  INFO        Train cutoff: 2023-02-01
+00:59:23  INFO        Loading tokenizer (distilbert-base-uncased)…
+00:59:24  INFO        Punctuality: training…
+00:59:28  INFO        Punctuality: train=7,560 balanced, test=11,887
+01:03:00  INFO          Punctuality epoch 1/3 — loss: 0.9084
+01:06:30  INFO          Punctuality epoch 2/3 — loss: 0.7218
+01:10:01  INFO          Punctuality epoch 3/3 — loss: 0.5817
+01:10:01  INFO          Saved checkpoint → /Users/balerion/Downloads/airline_absa-5/outputs/bert_checkpoints/Punctuality
+01:11:05  INFO          Punctuality — F1=0.551  Acc=0.655
+01:11:05  INFO        Cabin Comfort: training…
+01:11:12  INFO        Cabin Comfort: train=23,007 balanced, test=9,629
+01:21:51  INFO          Cabin Comfort epoch 1/3 — loss: 0.8732
+01:32:32  INFO          Cabin Comfort epoch 2/3 — loss: 0.6792
+01:43:12  INFO          Cabin Comfort epoch 3/3 — loss: 0.5049
+01:43:12  INFO          Saved checkpoint → /Users/balerion/Downloads/airline_absa-5/outputs/bert_checkpoints/Cabin_Comfort
+01:44:04  INFO          Cabin Comfort — F1=0.593  Acc=0.648
+01:44:05  INFO        Cabin Crew Service: training…
+01:44:10  INFO        Cabin Crew Service: train=24,567 balanced, test=15,725
+01:55:37  INFO          Cabin Crew Service epoch 1/3 — loss: 0.8508
+02:07:00  INFO          Cabin Crew Service epoch 2/3 — loss: 0.6806
+02:18:24  INFO          Cabin Crew Service epoch 3/3 — loss: 0.5196
+02:18:24  INFO          Saved checkpoint → /Users/balerion/Downloads/airline_absa-5/outputs/bert_checkpoints/Cabin_Crew_Service
+02:19:51  INFO          Cabin Crew Service — F1=0.590  Acc=0.660
+02:19:51  INFO        Food & Beverages: training…
+02:19:57  INFO        Food & Beverages: train=16,614 balanced, test=7,723
+02:27:40  INFO          Food & Beverages epoch 1/3 — loss: 0.8420
+02:39:07  INFO          Food & Beverages epoch 2/3 — loss: 0.6330
+11:21:14  INFO      --no-scrape: using scraped CSV (/Users/balerion/Downloads/airline_absa-5/outputs/skytrax_fresh.csv)
+11:21:14  INFO      
+═════════════════════════════════════════════════════════════════
+§1  DATA LOADING & PREPROCESSING
+═════════════════════════════════════════════════════════════════
+11:21:16  INFO      Raw columns: ['Airline Name', 'Overall_Rating', 'Review_Title', 'Review Date', 'Verified', 'Review', 'Aircraft', 'Type Of Traveller', 'Seat Type', 'Route', 'Date Flown', 'Seat Comfort', 'Cabin Staff Service', 'Food & Beverages', 'Ground Service', 'Inflight Entertainment', 'Wifi & Connectivity', 'Value For Money', 'Recommended']
+11:21:26  INFO      Loaded 144,934 reviews | 578 airlines | date range: 2012-04-01 00:00:00 – 2026-03-01 00:00:00
+11:21:26  INFO      
+═════════════════════════════════════════════════════════════════
+§2  EDA
+═════════════════════════════════════════════════════════════════
+11:21:26  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/eda_overview.png
+11:21:26  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/eda_sub_ratings.png
+11:21:26  INFO      EDA complete.
+11:21:26  INFO      
+═════════════════════════════════════════════════════════════════
+§3-4  BIO ASPECT EXTRACTION
+═════════════════════════════════════════════════════════════════
+11:21:26  INFO      Running BIO tagger …
+11:24:53  INFO      Total spans: 717,904 | Reviews with ≥1: 138,813 (95.8%)
+11:24:53  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/bio_aspect_extraction.png
+11:24:53  INFO      
+═════════════════════════════════════════════════════════════════
+§5  ASPECT SENTIMENT CLASSIFICATION
+═════════════════════════════════════════════════════════════════
+11:24:59  INFO        Punctuality               P=0.621 R=0.625 F1=0.622
+11:25:01  INFO        Cabin Comfort             P=0.608 R=0.610 F1=0.608
+11:25:03  INFO        Cabin Crew Service        P=0.603 R=0.607 F1=0.603
+11:25:05  INFO        Food & Beverages          P=0.617 R=0.621 F1=0.618
+11:25:06  INFO        Value For Money           P=0.583 R=0.588 F1=0.584
+11:25:08  INFO        OVERALL ASC  F1=0.608 | Lexicon baseline F1=0.462
+11:27:23  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/per_aspect_evaluation.png
+11:27:23  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/asc_confusion_matrix.png
+11:27:23  INFO      
+═════════════════════════════════════════════════════════════════
+§6  RATING–ASPECT ALIGNMENT
+═════════════════════════════════════════════════════════════════
+11:27:24  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/subrating_correlation.png
+11:27:24  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/radar_chart.png
+11:27:24  INFO      Strongest driver: Value For Money (r=0.899)
+11:27:24  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 5 — LCC vs LEGACY
+═════════════════════════════════════════════════════════════════
+11:27:24  INFO      European dataset: 32,994 reviews (LCC=11,093, Legacy=21,901)
+11:27:24  INFO        LCC mean=4.55  Legacy mean=4.75  p=0.0000
+11:27:24  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/lcc_vs_legacy_comparison.png
+11:27:24  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 6 — CABIN CLASS COMPARISON
+═════════════════════════════════════════════════════════════════
+11:27:24  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/class_rating_overview.png
+11:27:24  INFO        Economy vs Business (Mann-Whitney U):
+11:27:24  INFO          Overall_Rating                 Eco=4.06 Biz=6.16 ***
+11:27:24  INFO          Seat Comfort                   Eco=2.59 Biz=3.51 ***
+11:27:24  INFO          Cabin Staff Service            Eco=2.86 Biz=3.77 ***
+11:27:24  INFO          Food & Beverages               Eco=2.58 Biz=3.42 ***
+11:27:24  INFO          Ground Service                 Eco=2.25 Biz=3.20 ***
+11:27:24  INFO          Inflight Entertainment         Eco=2.48 Biz=3.25 ***
+11:27:24  INFO          Wifi & Connectivity            Eco=1.83 Biz=2.76 ***
+11:27:24  INFO          Value For Money                Eco=2.51 Biz=3.34 ***
+11:27:24  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/class_radar.png
+11:27:24  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 7 — TIME SERIES & GLOBAL EVENTS
+═════════════════════════════════════════════════════════════════
+11:27:25  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/timeseries_global_events.png
+11:27:25  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/seasonality_heatmap.png
+11:27:25  INFO      Time series complete | Data: 2014–2026 | Events annotated: 14/18
+11:27:25  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 8 — PREDICTIVE MODEL + DELAY THRESHOLD
+═════════════════════════════════════════════════════════════════
+11:27:31  INFO        Time-based split: train up to 2023-02, test after (88,744 train / 22,187 test)
+11:27:31  INFO        Ridge RMSE=1.162 R²=0.874 (time-based split, no leakage)
+11:27:31  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/predictive_feature_importance.png
+11:27:32  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/delay_threshold_analysis.png
+11:27:32  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 9 — FAKE REVIEW DETECTION
+═════════════════════════════════════════════════════════════════
+11:27:35  INFO        Training Isolation Forest …
+11:27:42  INFO        Flagged: 17 / 144,934 (0.0%)
+11:27:42  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/fake_review_detection.png
+11:27:42  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 10 — ROUTE ANALYSIS
+═════════════════════════════════════════════════════════════════
+11:27:44  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/route_haul_analysis.png
+11:27:44  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 11 — AOPE
+═════════════════════════════════════════════════════════════════
+11:27:44  INFO        Extracting AOPE pairs …
+11:29:26  INFO        419,153 pairs | 114,976 reviews | negation rate=4.2%
+11:29:26  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/aope_opinion_words.png
+11:29:26  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 12 — TRAVELLER TYPE × ASPECT INTERACTION
+═════════════════════════════════════════════════════════════════
+11:29:26  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/traveller_aspect_interaction.png
+11:29:27  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/traveller_delay_sensitivity.png
+11:29:27  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 13 — AIRCRAFT TYPE ANALYSIS
+═════════════════════════════════════════════════════════════════
+11:29:28  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/aircraft_analysis.png
+11:29:28  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 14 — WEATHER SIGNAL ANALYSIS
+═════════════════════════════════════════════════════════════════
+11:29:52  INFO        Weather mentions: 7,458 / 144,934 (5.1%)
+11:29:52  INFO        Rating — weather: 4.58 | no-weather: 4.37 | gap: +0.20 (p=0.0000)
+11:29:52  INFO        → Passengers are MORE forgiving when weather is mentioned (attribution theory).
+11:29:52  INFO        Weather+delay co-mention: 4,364 (58.5%)
+11:29:52  INFO        Weather+delay mean rating: 3.77 | weather alone: 5.71
+11:29:52  INFO        Turbulence         n=1,499  mean=6.09
+11:29:52  INFO        Precipitation      n=1,052  mean=3.94
+11:29:52  INFO        Ice & De-icing     n=1,718  mean=5.58
+11:29:52  INFO        Fog & Vis          n=  474  mean=4.60
+11:29:52  INFO        Wind & Storm       n=1,301  mean=4.22
+11:29:52  INFO        Generic            n=2,181  mean=3.21
+11:29:53  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/weather_analysis.png
+11:29:53  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/weather_subrating_impact.png
+11:29:53  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/weather_segments.png
+11:29:53  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/weather_airlines.png
+11:29:53  INFO      
+  WEATHER MODULE SUMMARY
+  ───────────────────────────────────────────────────────
+  Total weather mentions    : 7,458 (5.1% of corpus)
+  Mean rating — weather     : 4.58
+  Mean rating — no weather  : 4.37
+  Attribution gap           : +0.20 (p=0.0000)
+  Weather + delay           : 4,364 (58.5% of weather reviews)
+  Weather without delay     : 3,094 (mean: 5.71)
+  Weather + delay mean      : 3.77
+  Peak weather month        : Jan
+  ───────────────────────────────────────────────────────
+  Interpretation: passengers are MORE forgiving when
+  weather is mentioned. The delay pathway accounts for 59% of
+  weather-related sentiment, consistent with attribution theory.
+
+11:29:53  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 15 - PEAK SEASON ANALYSIS (HEMISPHERE-AWARE)
+═════════════════════════════════════════════════════════════════
+11:29:54  INFO        Hemisphere NH: 121,075 (83.5%)
+11:29:54  INFO        Hemisphere EQ: 14,041 (9.7%)
+11:29:54  INFO        Hemisphere SH: 9,818 (6.8%)
+11:29:54  INFO        NH peak (Jun-Aug):  3.54 | off-peak: 4.01 | D=-0.47 p=0.0000
+11:29:54  INFO        SH peak (Dec-Feb):  3.86 | off-peak: 4.04 | D=-0.18 p=0.0938
+11:29:54  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/peak_season_hemispheres.png
+11:29:54  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/peak_season_aspect_delta.png
+11:29:54  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/peak_season_comparison.png
+11:29:54  INFO      
+  PEAK SEASON SUMMARY
+  ─────────────────────────────────────────────────────────────
+  NH reviews              : 101,150
+  SH reviews              : 9,804
+  NH peak (Jun-Aug) gap   : -0.47  (p=0.0000)
+  SH peak (Dec-Feb) gap   : -0.18  (p=0.0938)
+  ─────────────────────────────────────────────────────────────
+  Both hemispheres show a peak-season rating shift driven by
+  higher passenger volumes, reduced operational slack, and
+  greater delay probability during high-demand periods.
+
+11:29:54  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 16 — CAUSAL INFERENCE (DiD EVENT ANALYSIS)
+═════════════════════════════════════════════════════════════════
+11:29:54  INFO        Boeing 737 MAX Ban              DiD=+0.803  raw=-0.281  p=0.0001 ***  (pre n=5,085, post n=5,408)
+11:29:54  INFO        COVID-19 Pandemic               DiD=-0.893  raw=-1.174  p=0.0000 ***  (pre n=5,408, post n=984)
+11:29:54  INFO        Ukraine War & Airspace          DiD=-0.345  raw=-0.170  p=0.1180 n.s.  (pre n=1,754, post n=4,382)
+11:29:54  INFO        Post-COVID Boom                 DiD=+0.730  raw=+0.257  p=0.0002 ***  (pre n=2,922, post n=4,891)
+11:29:55  INFO        EU Aviation Strikes             DiD=+1.329  raw=+0.689  p=0.0000 ***  (pre n=3,215, post n=3,770)
+11:29:55  INFO        Boeing Door Blowout             DiD=-0.301  raw=+0.320  p=0.0001 ***  (pre n=4,020, post n=2,255)
+11:29:55  INFO        CrowdStrike Outage              DiD=+0.058  raw=+0.221  p=0.0160 *  (pre n=3,709, post n=2,204)
+11:29:55  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/causal_event_impacts.png
+11:29:55  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/causal_did_panels.png
+11:29:55  INFO      
+  DiD SUMMARY TABLE
+11:29:55  INFO        Event                               DiD    Raw Δ    p-value   Sig
+11:29:55  INFO        ─────────────────────────────────────────────────────────────────
+11:29:55  INFO        COVID-19 Pandemic                -0.893   -1.174     0.0000   ***
+11:29:55  INFO        Ukraine War & Airspace           -0.345   -0.170     0.1180  n.s.
+11:29:55  INFO        Boeing Door Blowout              -0.301   +0.320     0.0001   ***
+11:29:55  INFO        CrowdStrike Outage               +0.058   +0.221     0.0160     *
+11:29:55  INFO        Post-COVID Boom                  +0.730   +0.257     0.0002   ***
+11:29:55  INFO        Boeing 737 MAX Ban               +0.803   -0.281     0.0001   ***
+11:29:55  INFO        EU Aviation Strikes              +1.329   +0.689     0.0000   ***
+11:29:55  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/causal_did_results.csv
+11:29:55  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 17 — SEASONAL SENSITIVITY BY CARRIER / CABIN / HAUL
+═════════════════════════════════════════════════════════════════
+11:29:55  INFO        NH reviews: 100,256 | SH reviews: 10,698
+11:29:55  INFO        LCC      NH  peak=2.64  off=3.06  gap=-0.42  p=0.0000 ***
+11:29:55  INFO        LCC      SH  peak=2.53  off=2.65  gap=-0.11  p=0.9502 n.s.
+11:29:55  INFO        Legacy   NH  peak=3.83  off=4.33  gap=-0.50  p=0.0000 ***
+11:29:55  INFO        Legacy   SH  peak=4.38  off=4.68  gap=-0.30  p=0.0132 *
+11:29:55  INFO        Other    NH  peak=4.00  off=4.39  gap=-0.39  p=0.0000 ***
+11:29:55  INFO        Other    SH  peak=3.80  off=3.88  gap=-0.08  p=0.6817 n.s.
+11:29:55  INFO        Economy          NH  gap=-0.44  ***
+11:29:55  INFO        Economy          SH  gap=-0.22  n.s.
+11:29:55  INFO        Prem.Economy     NH  gap=-0.50  ***
+11:29:55  INFO        Prem.Economy     SH  gap=-0.79  *
+11:29:55  INFO        Business         NH  gap=-0.28  ***
+11:29:55  INFO        Business         SH  gap=+0.09  n.s.
+11:29:55  INFO        First            NH  gap=+0.05  n.s.
+11:29:55  INFO        Short-haul     NH  gap=-0.43  ***
+11:29:55  INFO        Short-haul     SH  gap=-0.13  n.s.
+11:29:55  INFO        Medium-haul    NH  gap=-0.45  ***
+11:29:55  INFO        Medium-haul    SH  gap=-0.18  n.s.
+11:29:55  INFO        Long-haul      NH  gap=-0.39  ***
+11:29:55  INFO        Ultra-long     NH  gap=-0.35  **
+11:29:55  INFO        Ultra-long     SH  gap=-0.21  n.s.
+11:29:56  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/seasonal_carrier_penalty.png
+11:29:56  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/seasonal_carrier_heatmap.png
+11:29:56  INFO      
+  MODULE 17 SUMMARY
+  ─────────────────────────────────────────────────────────────────
+  Key findings:
+  • LCC carriers typically show a larger peak-season penalty than Legacy
+    carriers, consistent with lower operational slack and fewer hub options.
+  • Economy Class absorbs the largest peak-season penalty; Business Class
+    is partially insulated through dedicated check-in, lounge access, and
+    higher minimum service floors.
+  • Short-haul routes show the strongest seasonal sensitivity due to slot
+    constraints, single-airport dependencies, and weather cascade effects.
+  ─────────────────────────────────────────────────────────────────
+
+11:29:56  INFO      
+═════════════════════════════════════════════════════════════════
+MODULE 18 — FINE-TUNED DISTILBERT ASC
+═════════════════════════════════════════════════════════════════
+11:29:57  INFO        Device: cpu
+11:29:57  INFO        Model:  distilbert-base-uncased
+11:29:57  INFO        Epochs: 3  |  Batch: 16  |  MaxLen: 128
+11:29:57  INFO        Train cutoff: 2023-02-01
+11:29:57  INFO        Loading tokenizer (distilbert-base-uncased)…
+11:29:58  INFO        Punctuality: checkpoint found — loading…
+11:31:08  INFO        Punctuality (from checkpoint) — F1=0.551  Acc=0.655
+11:31:08  INFO        Cabin Comfort: checkpoint found — loading…
+11:32:07  INFO        Cabin Comfort (from checkpoint) — F1=0.593  Acc=0.648
+11:32:07  INFO        Cabin Crew Service: checkpoint found — loading…
+11:33:50  INFO        Cabin Crew Service (from checkpoint) — F1=0.590  Acc=0.660
+11:33:50  INFO        Food & Beverages: training…
+11:33:56  INFO        Food & Beverages: train=16,614 balanced, test=7,723
+11:41:20  INFO          Food & Beverages epoch 1/3 — loss: 0.8420
+11:48:42  INFO          Food & Beverages epoch 2/3 — loss: 0.6404
+11:56:03  INFO          Food & Beverages epoch 3/3 — loss: 0.4789
+11:56:03  INFO          Saved checkpoint → /Users/balerion/Downloads/airline_absa-5/outputs/bert_checkpoints/Food_and_Beverages
+11:56:45  INFO          Food & Beverages — F1=0.619  Acc=0.694
+11:56:45  INFO        Value For Money: training…
+11:56:51  INFO        Value For Money: train=10,692 balanced, test=10,916
+12:01:37  INFO          Value For Money epoch 1/3 — loss: 0.9280
+12:06:23  INFO          Value For Money epoch 2/3 — loss: 0.7105
+12:11:08  INFO          Value For Money epoch 3/3 — loss: 0.5310
+12:11:08  INFO          Saved checkpoint → /Users/balerion/Downloads/airline_absa-5/outputs/bert_checkpoints/Value_For_Money
+12:12:07  INFO          Value For Money — F1=0.520  Acc=0.662
+12:12:07  INFO      
+  BERT MODULE SUMMARY
+  ─────────────────────────────────────────────────────────────────────
+  Aspect                     DistilBERT F1  TF-IDF F1    Delta
+  ─────────────────────────────────────────────────────────────────────
+12:12:07  INFO        Punctuality                        0.551      0.618  -0.067
+12:12:07  INFO        Cabin Comfort                      0.593      0.606  -0.013
+12:12:07  INFO        Cabin Crew Service                 0.590      0.602  -0.012
+12:12:07  INFO        Food & Beverages                   0.619      0.617 +  0.002
+12:12:07  INFO        Value For Money                    0.520      0.597  -0.077
+12:12:07  INFO        OVERALL                            0.574      0.607  -0.033
+12:12:07  INFO        Lexicon baseline                       —      0.462
+12:12:07  INFO        ─────────────────────────────────────────────────────────────────────
+12:12:07  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/bert_results.csv
+12:12:08  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/bert_asc_comparison.png
+12:12:08  INFO        Saved: /Users/balerion/Downloads/airline_absa-5/outputs/bert_confusion_matrices.png
+12:12:08  INFO      
+═════════════════════════════════════════════════════════════════
+SAVING ALL OUTPUTS
+═════════════════════════════════════════════════════════════════
+12:12:09  INFO        annotated_reviews_full.csv    (144,934 rows)
+12:12:10  INFO        aspect_span_predictions.csv   (717,904 spans)
+12:12:10  INFO        aope_pairs.csv                (419,153 pairs)
+12:12:10  INFO        flagged_fake_reviews.csv      (17 flagged)
+12:12:10  INFO        evaluation_summary.csv + subrating_correlation.csv
+12:12:10  INFO      
+═════════════════════════════════════════════════════════════════
+PIPELINE COMPLETE — SUMMARY
+═════════════════════════════════════════════════════════════════
+12:12:10  INFO      
+  Dataset             : 144,934 reviews | 578 airlines
+  BIO spans           : 717,904 | 138,813 reviews covered
+  AOPE pairs          : 419,153 | negation rate 4.2%
+  Multi-aspect        : 110,496 reviews (76.2%)
+  ASC lexicon F1      : 0.462
+  ASC TF-IDF+LR F1    : 0.608  (Δ=+0.145)
+  Satisfaction driver : Value For Money (r=0.899)
+  Discrepancies       : 8,264 (5.7%)
+  Fake flagged        : 17 (0.0%)
+  All outputs → /Users/balerion/Downloads/airline_absa-5/outputs/
+

@@ -1,0 +1,7 @@
+outputs/*.csv
+outputs/skytrax_fresh.csv
+outputs/bert_checkpoints/
+__pycache__/
+pipeline/__pycache__/
+*.pyc
+.DS_Store

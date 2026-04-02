@@ -1,0 +1,22 @@
+# Minimum versions tested. Using >= so existing installations are not downgraded.
+# Tested with Python 3.10+
+# No NLP model downloads required — pipeline uses custom lexicon-based BIO tagger only.
+
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+pandas>=2.0.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+scikit-learn>=1.3.0
+scipy>=1.11.0
+selenium>=4.18.0
+webdriver-manager>=4.0.0
+
+# ── Module 18: DistilBERT fine-tuning (optional, large download ~1 GB) ───────
+# Install separately before running Module 18:
+#   pip install torch transformers datasets
+# torch>=2.0.0
+# transformers>=4.38.0
+# datasets>=2.18.0
